@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="input_margin">15dp</dimen>
+    <dimen name="card_margin_top">5dp</dimen>
+    <dimen name="header_text">22sp</dimen>
+</resources>

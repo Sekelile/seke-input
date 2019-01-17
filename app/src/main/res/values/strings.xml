@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">SekeInput</string>
+    <string name="base_url">http://192.168.88.56:3002</string>
+</resources>
