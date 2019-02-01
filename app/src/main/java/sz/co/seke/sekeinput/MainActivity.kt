@@ -20,6 +20,8 @@ import com.github.kittinunf.fuel.Fuel
 import kotlinx.android.synthetic.main.activity_main.*
 import org.json.JSONObject
 import sz.co.seke.sekeinput.R.string.base_url
+import java.io.BufferedReader
+import java.io.FileReader
 
 val MY_PERMISSIONS_REQUEST_CAMERA:Int = 1000;
 
@@ -27,6 +29,7 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var codeScanner: CodeScanner
     private var itemList: MutableList<Item> = mutableListOf()
+    private var serverIp = ""
 
 
     override fun onRequestPermissionsResult(requestCode: Int,
@@ -56,18 +59,12 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        getServerIp()
 
         var code: String = ""
         var price: Double
         var quantity: Int
         var name: String
-
-        Fuel.get("http://192.168.8.101:3002/item/60069795")
-            .response{request, response, result ->
-                println(request)
-                println(response)
-                println(result)
-            }
 
 
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA)
@@ -154,7 +151,7 @@ class MainActivity : AppCompatActivity() {
             Log.e("Price",price_edit.toString())
             itemObject.put("price",price_edit.text.toString().toFloat())
             itemObject.put("quantity",quantity_text.text.toString().toInt())
-            Fuel.post("${getString(base_url)}/item")
+            Fuel.post("${serverIp}/item")
                 .jsonBody(itemObject.toString())
                 .response{ request, response, result ->
                     println(request)
@@ -169,6 +166,27 @@ class MainActivity : AppCompatActivity() {
                     }
 
                 }
+        }
+    }
+
+    fun getServerIp(){
+        val BUF: Int = 8 * 1024
+
+        val bufferedReader = BufferedReader(FileReader("/proc/net/arp"), BUF)
+        var line: String? = bufferedReader.readLine()
+        while (line != null) {
+            Log.e("line",line)
+            if (line.contains("wlan")) {
+                Log.e("URL","http://${line.substring(0,line.indexOf(" "))}:3002/ping")
+                Fuel.get("http://${line.substring(0,line.indexOf(" "))}:3002/ping")
+                    .response{ request, response, result ->
+                        if(response.statusCode == 200){
+                            Log.e("HOST",response.url.host)
+                            serverIp = "http://${response.url.host}:3002"
+                        }
+                    }
+            }
+            line = bufferedReader.readLine()
         }
     }
 }
