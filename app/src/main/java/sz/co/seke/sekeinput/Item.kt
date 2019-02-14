@@ -1,4 +1,3 @@
 package sz.co.seke.sekeinput
 
-class Item {
-}
+data class Item(val code:String ,val name: String,val price:Number, val quantity:Number)
