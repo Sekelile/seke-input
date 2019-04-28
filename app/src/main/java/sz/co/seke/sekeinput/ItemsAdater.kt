@@ -39,8 +39,8 @@ class ItemsAdapter (private val items: List<Item>) : RecyclerView.Adapter<ItemsA
     override fun onBindViewHolder(p0: ItemViewholder, p1: Int) {
         Log.e("title",items[p1].name)
         p0.textView.text = items[p1].name
-        p0.priceView.text = "At E ${items[p1].price} Each"
-        p0.quantity.text = "${items[p1].quantity} Units"
+        p0.priceView.text = "At E ${items[p1].price} Each , ${items[p1].bought} items have been bought"
+        p0.quantity.text = "${items[p1].quantity} Units "
         p0._view.setOnClickListener({
             selectItem(it,items[p1])
         })

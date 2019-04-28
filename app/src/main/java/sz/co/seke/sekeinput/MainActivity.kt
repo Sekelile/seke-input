@@ -2,6 +2,7 @@ package sz.co.seke.sekeinput
 
 import android.Manifest
 import android.content.Context
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.wifi.WifiManager
 import android.support.v7.app.AppCompatActivity
@@ -79,6 +80,8 @@ class MainActivity : AppCompatActivity() {
         var name: String
 
         adapter = ItemsAdapter(itemList)
+
+        open_sales.setOnClickListener { startActivity(Intent(this,ItemListActivity::class.java)) }
 
         items_recycler_view.setHasFixedSize(true)
         items_recycler_view.layoutManager = LinearLayoutManager(this)
@@ -234,7 +237,11 @@ class MainActivity : AppCompatActivity() {
                                     itemList.clear()
                                     for(i in 0..its.length()-1){
                                         val o = its.getJSONObject(i)
-                                        itemList.add(Item(o.getString("bar_code"),o.getString("name"),o.getDouble("price"),o.getInt("quantity")))
+                                        if(o.has("bought")){
+                                            itemList.add(Item(o.getString("bar_code"),o.getString("name"),o.getDouble("price"),o.getInt("quantity"),o.getInt("bought")))
+                                        }else{
+                                            itemList.add(Item(o.getString("bar_code"),o.getString("name"),o.getDouble("price"),o.getInt("quantity"),0))
+                                        }
                                     }
                                     runOnUiThread{
                                         adapter.notifyDataSetChanged()

@@ -29,15 +29,27 @@
                   app:layout_constraintTop_toTopOf="parent"
                   android:layout_alignParentTop="true"
                   android:layout_height="wrap_content">
-        <android.support.v7.widget.AppCompatButton
-                android:id="@+id/scan_btn"
-                android:layout_width="match_parent"
-                android:layout_margin="@dimen/input_margin"
-                android:text="SCAN"
-                app:layout_constraintTop_toTopOf="parent"
-                android:textColor="@color/white"
-                android:background="@drawable/round_button"
-                android:layout_height="wrap_content"/>
+        <LinearLayout android:layout_width="match_parent" android:orientation="horizontal" android:layout_height="wrap_content">
+            <android.support.v7.widget.AppCompatButton
+                    android:id="@+id/scan_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_margin="@dimen/input_margin"
+                    android:text="SCAN"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:textColor="@color/white"
+                    android:background="@drawable/round_button"
+                    android:layout_height="wrap_content"/>
+            <android.support.v7.widget.AppCompatButton
+                    android:id="@+id/open_sales"
+                    android:layout_width="wrap_content"
+                    android:layout_margin="@dimen/input_margin"
+                    android:text="SALES"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:textColor="@color/white"
+                    android:background="@drawable/round_button"
+                    android:layout_height="wrap_content"/>
+        </LinearLayout>
+
         <ScrollView
                 android:id="@+id/list"
                 android:layout_width="match_parent"
