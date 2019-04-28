@@ -26,7 +26,6 @@ import io.socket.emitter.Emitter
 import kotlinx.android.synthetic.main.activity_main.*
 import org.json.JSONArray
 import org.json.JSONObject
-import sz.co.seke.sekeinput.R.string.base_url
 import java.io.BufferedReader
 import java.io.FileReader
 import java.net.URISyntaxException
@@ -36,7 +35,6 @@ val MY_PERMISSIONS_REQUEST_CAMERA: Int = 1000;
 class MainActivity : AppCompatActivity() {
 
     private var mSocket: Socket? = null
-
 
     private lateinit var codeScanner: CodeScanner
     private var itemList: MutableList<Item> = mutableListOf()
