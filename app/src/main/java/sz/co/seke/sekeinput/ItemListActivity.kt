@@ -136,7 +136,7 @@ class ItemListActivity : AppCompatActivity() {
         override fun onBindViewHolder(holder: ViewHolder, position: Int) {
             val item = values[position]
             holder.quantity.text = item.quantity.toString()
-            holder.name.text = item.name
+            holder.name.text = "${item.name} @ E${item.price}"
             holder.bought.text = item.bought.toString()
 
             with(holder.itemView) {
