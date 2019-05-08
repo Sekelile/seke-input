@@ -153,6 +153,7 @@ class MainActivity : AppCompatActivity() {
                 scanner_view.visibility = View.GONE
                 main_ly.visibility = View.VISIBLE
                 scan_btn.visibility = View.GONE
+                open_sales.visibility = View.GONE
                 save_btn.visibility = View.VISIBLE
                 code = it.text
             }
@@ -197,6 +198,22 @@ class MainActivity : AppCompatActivity() {
                         save_btn.visibility = View.GONE
                         list.visibility = View.VISIBLE
                         scan_btn.visibility = View.VISIBLE
+                        open_sales.visibility = View.VISIBLE
+                        val jsonItem = JSONObject(String(response.data))
+                        val newItem = Item(
+                            jsonItem.getString("bar_code"),
+                            jsonItem.getString("name"),
+                            jsonItem.getDouble("price"),
+                            jsonItem.getInt("quantity"),
+                            jsonItem.getInt("bought"))
+                        for(item in itemList){
+                            if(item.code == newItem.code){
+                                itemList.remove(item)
+                                break
+                            }
+                        }
+                        itemList.add(newItem)
+                        adapter.notifyDataSetChanged()
                     } else {
                         Toast.makeText(this, "There was an error " + response.statusCode, Toast.LENGTH_LONG).show()
                     }
